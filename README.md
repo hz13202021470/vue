@@ -1,6 +1,8 @@
 # world
 
 > A Vue.js project
+>
+> 一个实用vue 仿饿了么的项目
 
 ## Build Setup
 
@@ -19,3 +21,8 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# 技术实用vue2 + vue-router + vuex+axios+express
+
+1. 数据实用json 文件保存，实用express 模拟接口
+2. 实用axios 请求接口获取数据
