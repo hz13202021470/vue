@@ -2,11 +2,11 @@
   <div class="carbutton">
 		<transition name="fade">
 		<div class="wrap" v-show="this.food.count">
-			<div class="cart_decrease icon-remove_circle_outline"  @click="decrease($event)"></div>
+			<div class="cart_decrease icon-remove_circle_outline"  @click.stop="decrease($event)"></div>
 		  <div class="cart_count" >{{this.food.count}}</div>
 		</div>
 		</transition>
-		<div class="cart_add icon-add_circle" @click="add($event)"></div>
+		<div class="cart_add icon-add_circle" @click.stop="add($event)"></div>
 	</div>
 </template>
 
@@ -35,17 +35,16 @@
 					if (!this.food.count) {
 								this.$set(this.food,'count', 1)
 					} else {
-							this.food.count++
+              this.food.count++
+              console.log(this.food.count)              
 					}
-
-						
 				},
 				decrease(event) {
-						if (!event._constructed) return
-							if (this.food.count > 0) {
-									this.food.count--
+						if (!event._constructed) {return}
+							if (this.food.count) {
+                  this.food.count--
+                  console.log(this.food.count)
 							 }
-								return
 							}
 				},
 		created() {

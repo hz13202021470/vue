@@ -17,8 +17,9 @@
 					</div>
 				</div>
      </div>
+    <transition name="shopCart">
      <div class="shopcart_list" v-show="islistShow">
-			 	<div class="shopcart_wraper">
+			 	 	<div class="shopcart_wraper">
 					  <div class="header">
 							<span class="cart">购物车</span>
 							<span class="empty">清空</span>
@@ -36,8 +37,9 @@
 									</li>
 								</ul>
 						</div>
-				 </div>
+				</div>
      </div>
+    </transition>
 	 </div>
 </template>
 
@@ -111,17 +113,13 @@
 				  	if (!count) return
 							this.flod = !this.flod
 							this.$nextTick(()=> {
-									if (!this._initScroll()) {
-											this._initScroll()
+									if (!this.foodsScroll) {
+											this.foodsScroll  =  new BScroll( this.$refs.content_wrapper,{
+													 click:true
+					 						})
 									}
 								})
-					 },
-							 //初始化better-scroll
-			 _initScroll() {
-					 this.foodsScroll  =  new BScroll( this.$refs.content_wrapper,{
-						 click:true
-					 })
-			 },
+					 }
 
 				
 		 },
@@ -139,7 +137,7 @@
     position:fixed
     left:0
     bottom:0
-    z-index:50
+    z-index:999
     width:100%
     background-color:#141D27
     height:48px
@@ -216,9 +214,13 @@
 			position:fixed
 			width:100%
 			height:100%
+			background:rgba(0,0,0,.6)
 			bottom:48px
 			left :0
-			background:rgba(0,0,0,.6)
+			&.shopCart-enter-active, &.shopCart-leave-active
+        	transition: opacity   .5s
+    	&.shopCart-enter, &.shopCart-leave-to
+					opacity:0
 			.shopcart_wraper
 				max-height:305px
 				width:100%

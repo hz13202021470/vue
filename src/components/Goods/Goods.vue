@@ -66,7 +66,7 @@
 									foods.push(food)
 								}
 							})
-						})
+            })
 						return foods
 					},
 					//当右侧滑动到一定高度，左侧菜单会添加相应的样式
@@ -128,10 +128,6 @@
 								height += item.clientHeight
 								this.listHeight.push(height)
 						}
-					},
-					itemCount(payload) {
-						this.$set(payload,'currentCount')
-						console.log(payload)
 					}
 				},
 				created(){
