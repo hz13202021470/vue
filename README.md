@@ -2,7 +2,7 @@
 
 > A Vue.js project
 >
-> 一个使用用vue 仿饿了么的项目
+> 一个使用vue 仿饿了么的项目
 
 ## Build Setup
 
