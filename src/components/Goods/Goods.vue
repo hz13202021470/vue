@@ -63,7 +63,7 @@
 						this.goods.forEach((good) => {
 							good.foods.forEach((food) => {
 								if (food.count) {
-									foods.push(food)
+                  foods.push(food)
 								}
 							})
             })

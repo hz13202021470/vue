@@ -36,14 +36,12 @@
 								this.$set(this.food,'count', 1)
 					} else {
               this.food.count++
-              console.log(this.food.count)              
 					}
 				},
 				decrease(event) {
 						if (!event._constructed) {return}
 							if (this.food.count) {
                   this.food.count--
-                  console.log(this.food.count)
 							 }
 							}
 				},
