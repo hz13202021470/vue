@@ -13,7 +13,7 @@
 						 <li class="food_list food_list_hook" v-for="(item,index) in goods" :key="index">
 							 <h1 class="title">{{item.name}}</h1>
 							 <ul>
-								 	<li class="food_item" v-for="(food,index) in item.foods" :key="index">
+								 	<li class="food_item" v-for="(food,index) in item.foods" :key="index" @click="selectFood(food,$event)">
 										 <div class="icon">
 											 <img :src="food.icon" alt="">
 										 </div>
@@ -40,6 +40,7 @@
 					 </ul>
 		 </div>
 		<ShopCar :selectFoods="selectFoods" ></ShopCar>
+ 		<Food :food="selectedFood" ref="food"></Food>
  </div>
 </template>
 
@@ -47,6 +48,7 @@
 		import BScroll from 'better-scroll'
 		import ShopCar from '../ShopCart/ShopCart'
 		import CarButton from '../CarButton/CarButton'
+		import Food from '../Food/Food'
 		export default {
 				data() {
 					return	{
@@ -54,10 +56,11 @@
 						classMap:['decrease', 'discount', 'guarantee', 'invoice', 'special'],
 						listHeight :[],   //右侧食物列表高度数组
 						scrollY: 0 ,    //左侧菜单索引
-						itemFoodCount:0
+						selectedFood:{}, //已选择的食物对象
 					}
 				},
 				computed: {
+					//往购物车添加的食物列表
        		selectFoods() {
 						let foods = []
 						this.goods.forEach((good) => {
@@ -83,6 +86,13 @@
 					}
 				},
 				methods:{
+					//点击某一项食物，跳转到详细页
+					selectFood(food,event) {
+							if (!event._constructed) return
+							this.selectedFood = food
+
+							this.$refs.food.show()
+					},
 					//选择菜单
 					selectMenu(index) {
 					 let foodsList = this.$refs.good_wrapper.getElementsByClassName('food_list_hook')
@@ -128,14 +138,17 @@
 								height += item.clientHeight
 								this.listHeight.push(height)
 						}
-					}
+					},
+					//父组件的自定义方法，用来展开已点击 的食物项
+
 				},
 				created(){
 					this.getGoods()
 				},
 				components:{
 					ShopCar,
-					CarButton
+          CarButton,
+          Food
 				}
 		}
 </script>

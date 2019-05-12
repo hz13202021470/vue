@@ -31,7 +31,7 @@
 		},
 		methods:{
 				add(event) {
-					if (!event._constructed) return
+          if (!event._constructed) return
 					if (!this.food.count) {
 								this.$set(this.food,'count', 1)
 					} else {
