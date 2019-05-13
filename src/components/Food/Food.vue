@@ -1,15 +1,13 @@
 <template>
 		<transition name="foodDetail">
 		<div class="food" v-show="showFlag">
-				<ul class="wrapper">
+				<div class="wrapper">
 								<!-- 头部信息 -->
-					<li>
 							<div class="img">
 						   <span @click="closeFood" style="position:fixed;top:10px;left:10px;">关闭</span>
 									<img :src="food.image" alt="">
 							</div>
-					</li>
-					<li>
+			
 							<div class="header">
 								<div class="food_brief">
 								<span class="name">{{food.name}}</span>
@@ -29,32 +27,52 @@
 									</div>
 								</div>
 						</div>
-					</li>
-					<li>
+			
 				  	<Split></Split>
-					</li>
+			
 			<!-- 食物信息 -->
-					<li>
 						<div class="food_info">
 							<div class="about">
 								商品介绍
 							</div>
 										<p>{{food.info}}</p>
 								</div>
-					</li>
-				<li>
 					<Split></Split>
-				</li>
 			<!-- 评价 -->
-				<li>
           <div class="food_assessment">
 							商品评价
 						</div>
             <RatingSelect  :select-type="selectType" :only-content="onlyContent" :desc="desc" 
             :ratings="food.ratings" 
-           v-on:content-toggle ="contToggle"></RatingSelect>
-				</li>		
-				</ul>
+           v-on:content-toggle ="contToggle"></RatingSelect> 
+            <div class="ratings_wrapper">
+              <ul v-show="food.ratings && food.ratings.length " v-if="food.ratings">
+							<li v-for="(item, i) in food.ratings" :key="i" v-show="showNeed(item.rateType, item.text)">
+								<div class="ratings_content" >
+									<div class="content_left">
+										<div class="date">
+											<span class="date_left">{{ item.rateTime | getDate(item.rateTime)}}</span>
+										</div>
+										<div class="text">
+											<span class="icon-thumb_up" :class="{good:item.rateType === 0}" v-if="item.rateType === 0"></span>
+                      	<span class="icon-thumb_down"  v-else></span>
+										  <span class="retings_content_text">{{item.text}}</span>
+										</div>
+									</div>
+									<div class="content_right">
+											<span class="user_id">123445</span>
+											<span class="user_avatar">
+												<img :src="item.avatar" alt="">
+											</span>
+									</div>
+								</div>
+						  	</li>
+						  </ul>
+            <div class="no_ratings" v-show="food.ratings && !food.ratings.length " v-if="food.ratings" >
+              暂无评论
+            </div>
+            </div>
+				</div>
 		</div>
 		</transition>
 </template>
@@ -87,6 +105,22 @@ export default {
       }
     }
   },
+  filters:{
+       //转换后台传来 的毫秒数
+    getDate:function (d) {
+        let time = new Date(d)
+        let date = {
+          year:time.getFullYear(),
+          month:time.getMonth(),
+          date:time.getDate(),
+          hour:time.getHours(),
+          minutes:time.getMinutes(),
+          seconds:time.getSeconds()
+        }
+        let allTime = `${date.year}-${date.month}-${date.date}  ${date.hour}:${date.minutes}:${date.seconds}`
+        return allTime
+    }
+	},
   methods: {
     //控制显示/隐藏食物详细页
     show() {
@@ -112,9 +146,19 @@ export default {
     addFirst() {
       this.$refs.shopcart.add(event)
     },
+    //父组件方法，当ratingsSelect组件的 select 方法执行，会执行这个方法
     contToggle(event,type) {
       this.onlyContent = event
-      this.selectType =  type
+      this.selectType = type
+    },
+    //筛选要显示的内容
+    showNeed(type, text) {
+      if (this.onlyContent && !text) { return false}
+      if (this.selectType ===ALL) {
+        return true
+      } else {
+        return type === this.selectType
+      }
     }
   },
   created(){
@@ -243,6 +287,49 @@ export default {
   font-weight: 700;
   line-height: 14px;
   color: rgb(7, 17, 27);
+}
+
+/*评价列表*/
+.ratings_wrapper .ratings_content {
+	display:flex;
+	justify-content: space-between;
+}
+.ratings_wrapper .ratings_content .content_left{
+	color:rgb(147,153,159);
+	margin-top:4px;
+	line-height:24px;
+	font-size:0;
+}
+.ratings_content .content_left .date {
+	font-size: 12px;
+}
+.ratings_content .content_left .text {
+	font-size: 12px;
+}
+.content_left .text .icon-thumb_up.good {
+	color:rgb(0,160,220);
+}
+.content_left .text .retings_content_text {
+  color:black;
+}
+.ratings_wrapper .ratings_content .content_right{
+	display:flex;
+}
+.ratings_wrapper .ratings_content .content_right .user_id{
+	font-size:10px;
+	color:#93999F;
+	margin-right: 6px;
+	line-height: 24px;
+}
+.ratings_wrapper .ratings_content .content_right .user_avatar{
+	width:24px;
+	height:24px;
+}
+
+.content_right .user_avatar img{
+	width:100%;
+	height:100%;
+	border-radius:50%;
 }
 
 </style>

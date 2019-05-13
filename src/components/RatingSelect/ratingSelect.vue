@@ -1,36 +1,16 @@
 <template>
     	<div class="ratings">
 						<ul class="ratings_select">
-							<li class="all" :class="{'active': selectedType === 2}" @click="select($event,2)">{{desc.all}}</li>
-							<li class="good"  :class="{'active': selectedType === 0}" @click="select($event,0)">{{desc.positive}}</li>
-							<li class="bed"  :class="{'active': selectedType === 1}" @click="select($event,1)">{{desc.negative}}</li>
+							<li class="all" :class="{'active': selectedType === 2}" @click="select($event,2)">{{desc.all}} {{ratings.length}} </li>
+							<li class="good"  :class="{'active': selectedType === 0}" @click="select($event,0)">{{desc.positive}} {{good.length}}
+						</li>
+							<li class="bed"  :class="{'active': selectedType === 1}" @click="select($event,1)">{{desc.negative}} 
+								{{bed.length}}</li>
 						</ul>
-						<div class="switch_tatings">
-							<span class="icon-check_circle" :class="{'active':onlyContent}" @click="toogleContent($event)"></span>
+						<div class="switch_tatings"  :class="{'active':onlyContent}"  @click="toogleContent($event)">
+							<span class="icon-check_circle"></span>
 							<span class="text">只看有内容的评价</span>
 						</div>
-						<ul >
-							<li v-for="(item, i) in ratings" :key="i">
-								<div class="ratings_content">
-									<div class="content_left">
-										<div class="date">
-											<span class="date_left">{{ item.rateTime | getDate(item.rateTime)}}</span>
-										</div>
-										<div class="text">
-											<span class="icon-thumb_up" :class="{good:item.rateType === 0}" v-if="item.rateType === 0"></span>
-                      			<span class="icon-thumb_down" :class="{good:item.rateType === 0}" v-else></span>
-										  <span class="retings_content_text">{{item.text}}</span>
-										</div>
-									</div>
-									<div class="content_right">
-											<span class="user_id">123445</span>
-											<span class="user_avatar">
-												<img :src="item.avatar" alt="">
-											</span>
-									</div>
-								</div>
-							</li>
-						</ul>
 			</div>
 </template>
 
@@ -80,31 +60,28 @@
         }
       }
     },
-  filters:{
-       //转换后台传来 的毫秒数
-    getDate:function (d) {
-        let time = new Date(d)
-        let date = {
-          year:time.getFullYear(),
-          month:time.getMonth(),
-          date:time.getDate(),
-          hour:time.getHours(),
-          minutes:time.getMinutes(),
-          seconds:time.getSeconds()
-        }
-        let allTime = `${date.year}-${date.month}-${date.date}  ${date.hour}:${date.minutes}:${date.seconds}`
-        return allTime
-    }
-  },
+    computed:{
+      good() {
+        return this.ratings.filter((rating) => {
+            return rating.rateType == POSITIVE
+        })
+			},
+			bed() {
+				return this.ratings.filter((rating) => {
+					return rating.rateType == NEGATIVE
+				})
+			}
+    },
   methods:{
     select(event, type) {
       if (!event._constructed) return
       this.selectedType = type
+      this.$emit('content-toggle',this.onlyContent,this.selectedType)
 },
 
       toogleContent(event) {
           if (!event._constructed) return
-          this.$emit('content-toggle', !this.onlyContent)
+          this.$emit('content-toggle', !this.onlyContent,this.selectedType)
           // this.$emit('update:onlyContent',!this.onlyContent)
       }
   }
@@ -163,54 +140,15 @@
 }
 .ratings .switch_tatings .icon-check_circle {
   padding-right:4px;
-	font-size:14px;
+	font-size:16px;
 	line-height:24px;
 }
-.ratings .switch_tatings .icon-check_circle.active {
+.ratings .switch_tatings.active .icon-check_circle{
   color:rgb(0,160,220);
 }
 .ratings .switch_tatings .text{
 	font-size:14px;
 	line-height:24px;
-}
-
-.ratings .ratings_content {
-	display:flex;
-	justify-content: space-between;
-}
-.ratings .ratings_content .content_left{
-	color:rgb(147,153,159);
-	margin-top:4px;
-	line-height:24px;
-	font-size:0;
-}
-.ratings_content .content_left .date {
-	font-size: 12px;
-}
-.ratings_content .content_left .text {
-	font-size: 12px;
-}
-.content_left .text .icon-thumb_up.good {
-	color:rgb(0,160,220);
-}
-.ratings .ratings_content .content_right{
-	display:flex;
-}
-.ratings .ratings_content .content_right .user_id{
-	font-size:10px;
-	color:#93999F;
-	margin-right: 6px;
-	line-height: 24px;
-}
-.ratings .ratings_content .content_right .user_avatar{
-	width:24px;
-	height:24px;
-}
-
-.content_right .user_avatar img{
-	width:100%;
-	height:100%;
-	border-radius:50%;
 }
 </style>
 
