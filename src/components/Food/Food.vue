@@ -95,9 +95,9 @@ export default {
   },
   data() {
     return {
-      showFlag: false,
-      selectType:ALL,
-      onlyContent:true,
+      showFlag: false, //是否显示食物详细页
+      selectType:ALL, //所有评价
+      onlyContent:true, //是否只显示只有评论的内容
       desc: {
         all: '全部',
         positive:'推荐',
@@ -151,7 +151,7 @@ export default {
       this.onlyContent = event
       this.selectType = type
     },
-    //筛选要显示的内容
+    //筛选要显示评论的内容
     showNeed(type, text) {
       if (this.onlyContent && !text) { return false}
       if (this.selectType ===ALL) {
