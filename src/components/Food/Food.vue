@@ -68,7 +68,7 @@
 								</div>
 						  	</li>
 						  </ul>
-            <div class="no_ratings" v-show="food.ratings && !food.ratings.length " v-if="food.ratings" >
+            <div class="no_ratings" v-show="!food.ratings || !food.ratings.length " v-if="food.ratings" >
               暂无评论
             </div>
             </div>
@@ -111,7 +111,7 @@ export default {
         let time = new Date(d)
         let date = {
           year:time.getFullYear(),
-          month:time.getMonth(),
+          month:time.getMonth() + 1,
           date:time.getDate(),
           hour:time.getHours(),
           minutes:time.getMinutes(),
@@ -290,6 +290,9 @@ export default {
 }
 
 /*评价列表*/
+.ratings_wrapper {
+  padding:0 18px;
+}
 .ratings_wrapper .ratings_content {
 	display:flex;
 	justify-content: space-between;

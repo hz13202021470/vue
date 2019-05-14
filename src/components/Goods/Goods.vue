@@ -139,7 +139,6 @@
 								this.listHeight.push(height)
 						}
 					},
-					//父组件的自定义方法，用来展开已点击 的食物项
 
 				},
 				created(){
