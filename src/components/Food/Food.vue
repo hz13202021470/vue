@@ -60,7 +60,7 @@
 										</div>
 									</div>
 									<div class="content_right">
-											<span class="user_id">123445</span>
+											<span class="user_name">{{item.username}}</span>
 											<span class="user_avatar">
 												<img :src="item.avatar" alt="">
 											</span>
@@ -83,9 +83,9 @@ import Split from '../Split/Split'
 import CartButton from '../CarButton/CarButton'
 import RatingSelect from '../RatingSelect/RatingSelect'
 
-  const POSITIVE = 0  //肯定评价
-  const NEGATIVE = 1 //否定评价
-  const ALL = 2 //所有评价
+const POSITIVE = 0  //肯定评价
+const NEGATIVE = 1 //否定评价
+const ALL = 2 //所有评价
 export default {
   name: "food",
   props: {
@@ -318,7 +318,7 @@ export default {
 .ratings_wrapper .ratings_content .content_right{
 	display:flex;
 }
-.ratings_wrapper .ratings_content .content_right .user_id{
+.ratings_wrapper .ratings_content .content_right .user_name{
 	font-size:10px;
 	color:#93999F;
 	margin-right: 6px;

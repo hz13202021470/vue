@@ -34,4 +34,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     +问题同上，如果想修改父组件的值可以在父组件往子组件传值的时候 加上 .sync 修饰符，如 :a.sync="我是父组件的值",子组件通过props 接收这个值 propos:{a },这时子组件通过  this.$emit('update:a','我是新的值')，来修改
     +问题同上，可以在子组件的 data 上定义一个属性来接收这个 父组件传过来的值，同时使用 ||  添加一个默认值
   5. 为什么更新了代码在github上没有显示贡献？
+  6. 第三次bug
+       评论页面的评论内容不能滚动到底部，差不多到底部就回弹，不知道为什么
 

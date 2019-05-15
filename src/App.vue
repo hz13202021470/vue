@@ -8,10 +8,10 @@
         <router-link :to="{name:'Goods'}">商品</router-link>
       </div>
       <div class="tab_item">
-        <router-link :to="{name:'Seller'}">评论</router-link>
+        <router-link :to="{name:'Ratings'}">评论</router-link>
       </div>
       <div class="tab_item">
-        <router-link :to="{name:'Ratings'}">商家</router-link>
+        <router-link :to="{name:'Seller'}">商家</router-link>
       </div>
     </div>
     <!-- 底部 -->
@@ -30,6 +30,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+#app
+  height:100%
 .tab
  display: flex
  width: 100%

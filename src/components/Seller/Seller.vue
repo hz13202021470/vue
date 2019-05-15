@@ -1,6 +1,6 @@
 <template>
  <div class="seller">
-	我是评论
+	我是商家
  </div>
 </template>
 

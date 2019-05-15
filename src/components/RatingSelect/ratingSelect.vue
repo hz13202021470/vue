@@ -77,8 +77,7 @@
       if (!event._constructed) return
       this.selectedType = type
       this.$emit('content-toggle',this.onlyContent,this.selectedType)
-},
-
+   },
       toogleContent(event) {
           if (!event._constructed) return
           this.$emit('content-toggle', !this.onlyContent,this.selectedType)
@@ -92,6 +91,8 @@
     /*评价*/
 .ratings {
 	padding:18px;
+  border-bottom:1px solid rgba(7,17,27,0.1);
+	padding-bottom:18px;
 }
 
 .ratings .ratings_select{

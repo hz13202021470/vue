@@ -6,6 +6,7 @@ export default new Vuex.Store({
     state: {
       minPrice: localStorage.getItem('minPrice')||0 , //最低起送费
       deliveryPrice: localStorage.getItem('deliveryPrice') || 0,//配送费
+      shopInfo:[],//商家信息
       // selectFood: []
   },
   getters: {

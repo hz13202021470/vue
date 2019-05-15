@@ -98,6 +98,7 @@
 				if (data.errno === 0) {
 					this.shopInfo = data.seller
           this.discountInfo = data.seller.supports
+          this.$store.state.shopInfo = data.seller //把请求获取到的数据放在vuex里面，其他页面也要用
 
           localStorage.setItem('minPrice',data.seller.minPrice)
           localStorage.setItem('deliveryPrice',data.seller.deliveryPrice)
