@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 头部 -->
-    <Header />
+    <Header></Header>
     <!-- 中间 -->
     <div class="tab border-1px">
       <div class="tab_item">
@@ -23,6 +23,13 @@
 import Header from './components/Header/Header.vue'
 export default {
   name: 'App',
+  data() {
+    return {
+    }
+  },
+  methods:{
+
+  },
   components: {
     Header
   }

@@ -102,6 +102,7 @@
 
           localStorage.setItem('minPrice',data.seller.minPrice)
           localStorage.setItem('deliveryPrice',data.seller.deliveryPrice)
+
 				}
 			}).catch((err) => {
 				console.log(err)
@@ -143,13 +144,14 @@
 		//关闭详细页
 		closeDetail() {
 			this.isDetail = false
-		}
+    },
 	},
 	created() {
 		this.getShopInfo()
 		this.classMap = ['decrease', 'discount', 'guarantee', 'invoice', 'special']
 	},
 	mounted() {
+
 	}
  }
 </script>

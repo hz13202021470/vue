@@ -1,7 +1,7 @@
 <template>
- <div class="ratings" ref="ratings">
-	 	<div class="ratings_wrapper">
-				<div class="ratings_hreader">
+ <div class="rating" ref="ratings">
+	 	<div class="rating_wrapper">
+				<div class="rating_hreader">
 					<div class="header_left">
 						<h1 class="title">3.9</h1>
 						<h2 class="score">综合评分</h2>
@@ -38,8 +38,8 @@
 				</div>
 				<Split></Split>
 				<RatingSelect :select-type="selectType" :only-content="onlyContent" :ratings="ratingArr" v-on:content-toggle ="contToggle"></RatingSelect>
-				<div class="ratings_list" >
-						<div class="ratings_item" v-for="(rating,i) in ratingArr" :key="i" v-show="showNeed(rating.rateType, rating.text)">
+				<div class="rating_list" >
+						<div class="rating_item" v-for="(rating,i) in ratingArr" :key="i" v-show="showNeed(rating.rateType, rating.text)">
 									<div class="header">
 										<div class="avatar">
 										<img :src="rating.avatar" alt="">
@@ -105,15 +105,8 @@ export default {
                           this.ratingsScroll = new BScroll(this.$refs.ratings, {
                             click:true
                         })
-                      // setTimeout(() => {
-                      //     this.ratingsScroll = new BScroll(this.$refs.ratings, {
-                      //       click:true
-                      //   })
-                      // },10)
 										}else {
-                      setTimeout(() => {
-                          this.ratingsScroll.refresh()
-                      },20)
+												  this.ratingsScroll.refresh()
 										}
 								})
 							}
@@ -128,7 +121,7 @@ export default {
 							}		
 					}
 				},
-				created(){
+				mounted(){
 						this.getRatings()
 				},
 				components:{
@@ -139,13 +132,15 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-		.ratings
+		.rating
 			width:100%
-			height:100%
 			overflow:hidden
-			.ratings_wrapper
+			position:absolute
+			top:174px
+			bottom:0
+			.rating_wrapper
 				width:100%
-				.ratings_hreader
+				.rating_hreader
 					padding:18px 0
 					display :flex
 					justify-content: center
@@ -223,9 +218,9 @@ export default {
 								font-size:12px
 								color:rgb(147,153,159)
 								margin-left:5px
-				.ratings_list
+				.rating_list
 					padding:0 18px 0 18px
-					.ratings_item
+					.rating_item
 						padding-top:18px
 						.header
 							display:flex

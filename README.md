@@ -36,4 +36,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
   5. 为什么更新了代码在github上没有显示贡献？
   6. 第三次bug
        评论页面的评论内容不能滚动到底部，差不多到底部就回弹，不知道为什么
+       + 修复不能滚动到底部的问题，父容器不能是视窗的高度，以iPhone 6 （视窗高度为667）为例，如果父容器的高度必须小于667
 

@@ -52,12 +52,6 @@
               negative:'不满意'
             }
           }
-      },
-      food:{
-        type:Object,
-        default(){
-          return { }
-        }
       }
     },
     computed:{
