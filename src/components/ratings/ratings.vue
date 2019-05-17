@@ -49,7 +49,7 @@
 												<h1>{{rating.username}}</h1>
 												<div class="star_wrapper">
 													<div class="star">
-														<span class="star_item on" v-for="(item,i) in rating.score" :key="i"></span>
+														<span class="star_item on" v-for="(item,i) in Math.round(rating.score)" :key="i"></span>
 														<span v-for="(item,index) in (5-rating.score)" :key="index + '1'" class="star_item off"></span>
 													</div>
 													<span class="arrival_time" v-if="rating.deliveryTime">{{rating.deliveryTime}}分钟送达</span>

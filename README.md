@@ -37,4 +37,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
   6. 第三次bug
        评论页面的评论内容不能滚动到底部，差不多到底部就回弹，不知道为什么
        + 修复不能滚动到底部的问题，父容器不能是视窗的高度，以iPhone 6 （视窗高度为667）为例，如果父容器的高度必须小于667
+   7. 使用keep-active 包裹APP.vue 文件中的 router-view 可以实现数据被缓存起来，路由在切换的时候，可以保存上一个页面的信息
+   8. 要善于利用flex 布局，特别是在用better-scroll 的时候，不管是垂直滚动还是纵向滚动，如果遇到内容盒子宽或高于父盒子一样的时候，要在父盒子加个display:flex,这样可以让子容器撑开
+   9. 完成 2019年5月17日 星期五
 

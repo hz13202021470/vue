@@ -3,42 +3,39 @@
 	 	<div class="seller_content" >
 			 <div class="name_wrapper">
 				 <div class="name_left">
-					 	<h1 class="name">粥品s</h1>
+					 	<h1 class="name">{{sellerInfo.name}}</h1>
 					 	<div class="star_wrapper">
 							 <div class="start">
-							 <span class="start_item on"></span>
-							 <span class="start_item on"></span>
-							 <span class="start_item on"></span>
-							 <span class="start_item on"></span>
-							 <span class="start_item on"></span>
+							 <span class="start_item on"   v-for="(item,i) in  score" :key="i"></span>
+               <span  class="start_item off" v-for="(item,i) in (5-score)" :key="i+'1'"></span>
 						 </div>
 						 <div class="count">
-							 <div class="rating_count">24</div>
-							 <div class="sell_count">91</div>
+							 <div class="rating_count">({{sellerInfo.ratingCount}})</div>
+							 <div class="sell_count">月售{{sellerInfo.sellCount}}份</div>
 						 </div>
 						 </div>
 				 </div>
-				 <div class="name_right">
-					 <span class="icon-favorite"></span>
-					 <span class="text">收藏</span>
+				 <div class="name_right" @click="likeHandle">
+					 <span class="icon-favorite" :class="{'active':isLike}"></span>
+					<span class="text">{{switchLike}}</span>
 				 </div>
 			 </div>
        <div class="time_wrapper">
          <div class="time_left">
 					 	<p>起送价</p>
-						 <h1>20
+						 <h1>{{sellerInfo.minPrice}}
 						 <span>元</span>
 						 </h1>
 				 </div>
          <div class="time_main">
 					 <p>商家配送</p>
-					 <h1>4
+					 <h1>{{sellerInfo.deliveryPrice}}
 					 <span>元</span>
 					 </h1>
 				 </div>
          <div class="time_right">
 					 <p>平均配送时间</p>
-					 <h1>44
+					 <h1>{{sellerInfo.deliveryTime}}
 					 <span>分钟</span>
 					 </h1>
 				 </div>
@@ -47,74 +44,31 @@
 			 <div class="notice_wrapper">
 				 <h1 class="title">公告与活动</h1>
 				 <p class="text">
-					 我是公告公告我是公告公告我是公告公告我是公告公告我是公告公告我是公告公告
-					 我是公告公告我是公告公告我是公告公告我是公告公告我是公告公告我是公告公告
+					 {{sellerInfo.bulletin}}
 				 </p>
 				 <ul>
-					 <li class="notice_item">
-						 <span class="notice_icon decrease"></span>
-						 <span class="notice_text">啦啦</span>
-					 </li>
-					  <li class="notice_item">
-						 <span class="notice_icon decrease"></span>
-						 <span class="notice_text">啦啦</span>
-					 </li> 
-					 <li class="notice_item">
-						 <span class="notice_icon decrease"></span>
-						 <span class="notice_text">啦啦</span>
-					 </li> 
-					 <li class="notice_item">
-						 <span class="notice_icon decrease"></span>
-						 <span class="notice_text">啦啦</span>
-					 </li> 
-					 	<li class="notice_item">
-						 <span class="notice_icon decrease"></span>
-						 <span class="notice_text">啦啦</span>
-					 </li>
-					 	<li class="notice_item">
-						 <span class="notice_icon decrease"></span>
-						 <span class="notice_text">啦啦</span>
-					 </li>
-					 					 	<li class="notice_item">
-						 <span class="notice_icon decrease"></span>
-						 <span class="notice_text">啦啦</span>
-					 </li>
-					 					 	<li class="notice_item">
-						 <span class="notice_icon decrease"></span>
-						 <span class="notice_text">啦啦</span>
-					 </li>
-					 		<li class="notice_item">
-						 <span class="notice_icon decrease"></span>
-						 <span class="notice_text">啦啦</span>
+					 <li class="notice_item" v-for="(item,i) in sellerInfo.supports" :key="i">
+						 <span class="notice_icon" :class="classMap[i]"></span>
+						 <span class="notice_text">{{item.description}}</span>
 					 </li>
 				 </ul>
 			 </div>
 			 <Split></Split>
 			 <div class="condition_wrapper">
 				 <h1 class="title">商家实景</h1>
-				 <ul class="condition_pice">
-					 <li class="pice_item">
-						 <img src="http://fuss10.elemecdn.com/8/71/c5cf5715740998d5040dda6e66abfjpeg.jpeg?imageView2/1/w/180/h/180" alt="" class="pice">
-					 </li>
-					 	 <li class="pice_item">
-						 <img src="http://fuss10.elemecdn.com/8/71/c5cf5715740998d5040dda6e66abfjpeg.jpeg?imageView2/1/w/180/h/180" alt="" class="pice">
-					 </li>
-					 	 <li class="pice_item">
-						 <img src="http://fuss10.elemecdn.com/8/71/c5cf5715740998d5040dda6e66abfjpeg.jpeg?imageView2/1/w/180/h/180" alt="" class="pice">
-					 </li>
-				 </ul>
+					<div class="picter_wrapper" ref="picter_wrapper">
+							<ul class="condition_pice">
+								<li class="pice_item" v-for="(pic,i) in sellerInfo.pics" :key="i">
+									<img :src="pic" alt="" class="pice">
+								</li>
+				 	</ul>
+					</div>
 			 </div>
 			 <Split></Split>
 			 <div class="message_wrapper">
 				 <h1 class="title">商家信息</h1>
 				 <ul>
-					 <li class="message_item">我是商家信息</li>
-					 <li class="message_item">我是商家信息</li>
-					 <li class="message_item">我是商家信息</li>
-					 <li class="message_item">我是商家信息</li>
-					 <li class="message_item">我是商家信息</li>
-					 <li class="message_item">我是商家信息</li>
-					 <li class="message_item">我是商家信息</li>
+					 <li class="message_item" v-for="(info,i) in sellerInfo.infos" :key="i">{{info}}</li>
 				 </ul>
 			 </div>
 		 </div>
@@ -132,17 +86,56 @@ let invoice =3
 let guarantee =4
 	export default {
 		data() {
-			return {}
-		},
+			return {
+        sellerInfo:{},
+				score:0,
+				classMap:['decrease', 'discount', 'guarantee', 'invoice', 'special'],
+				isLike:false
+      }
+    },
+    computed:{
+				switchLike() {
+						if(this.isLike) {
+							return `已收藏`
+						}
+						return `收藏`
+				}
+    },
 		methods:{
+			//初始化滚动事件
 			_initSellerScroll() {
 				this.sellerScroll = new BScroll(this.$refs.seller_wrapper, {
 					click:true
 				})
+				this.sellerPic = new BScroll(this.$refs.picter_wrapper, {
+						scrollX:true,
+						click:true
+				})
+				console.log(this.sellerPic)
+      },
+      
+    	getSeller() {
+        this.$http('api/seller').then((res) => {
+            let  data = res.data
+            if (data.errno === 0) {
+              this.sellerInfo = data.seller
+              this.score = Math.floor(data.seller.score)
+              this.$nextTick(() => {
+								this._initSellerScroll()
+							})
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+			},
+			likeHandle() {
+				this.isLike = !this.isLike
 			}
-		},
+    },
+    created(){
+      this.getSeller()
+  },
 		mounted() {
-			this._initSellerScroll()
 		},
 		components:{
 			Split
@@ -156,6 +149,8 @@ let guarantee =4
 			position:absolute
 			top:174px
 			bottom:0
+			left:0
+			right:0
 			overflow:hidden
 			.seller_content
 				.name_wrapper
@@ -183,6 +178,7 @@ let guarantee =4
 									&.off
 										bg-image("star36_off")
 							.count
+								font-size:10px
 								display:flex
 								.rating_count
 									padding-right:12px
@@ -192,12 +188,16 @@ let guarantee =4
 							font-size:24px
 							line-height:24px
 							color:#ccc
+							&.active
+									color:#F01414
 						.text
 							display:block
 							font-size:10px
 							line-height :10px
 							color:rgb(7,85,93)
 							padding-top:4px
+							position: absolute
+							right: 17px
 				.time_wrapper
 					padding:18px 
 					display:flex
@@ -274,19 +274,23 @@ let guarantee =4
 							font-size:12px
 							margin-left:6px
 				.condition_wrapper
-					padding:18px 0 18px 12px
+					margin:18px 18px 18px 18px
 					.title
 						font-size:14px
 						color:rgb(7,17,27)
 						line-height:14px
-					.condition_pice
-						margin-top:12px
+					.picter_wrapper
+						overflow:hidden
+						position:relative
 						display:flex
-						.pice_item
-							margin-left:6px
-							.pice
-								width:120px
-								height :90px
+						.condition_pice
+							margin-top:12px
+							display:flex
+							.pice_item
+								margin-right:6px
+								.pice
+									width:120px
+									height :90px
 				.message_wrapper
 					margin:18px 0 18px 18px
 					.title
